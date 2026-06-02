@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="rootNode" spacing="15" prefWidth="700" xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="com.app.extractor.ui.MainController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+    
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Вхідна папка:" prefWidth="100"/>
+        <TextField fx:id="inputPathField" HBox.hgrow="ALWAYS"/>
+        <Button text="Змінити тему" onAction="#toggleTheme"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Вихідний файл:" prefWidth="100"/>
+        <TextField fx:id="outputPathField" HBox.hgrow="ALWAYS" promptText="C:/result.xlsx"/>
+    </HBox>
+
+    <Separator/>
+    
+    <ScrollPane VBox.vgrow="ALWAYS" fitToWidth="true" style="-fx-background-color: transparent;">
+        <VBox fx:id="fieldsContainer" spacing="10"/>
+    </ScrollPane>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="+" onAction="#addRow" prefWidth="40"/>
+        <Button text="ОБРОБИТИ" onAction="#processFiles" 
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+</VBox>
