@@ -41,7 +41,12 @@
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.3</version>
         </dependency>
-
+        <!-- Бібліотека для роботи з JSON конфігураціями -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
         <!-- Тестування -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>

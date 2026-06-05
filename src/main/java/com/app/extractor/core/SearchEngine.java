@@ -1,54 +1,49 @@
 package com.app.extractor.core;
 
-import java.util.*;
-import java.util.regex.*;
-import java.util.stream.Collectors;
+import com.app.extractor.core.search.SearchField;
+import com.app.extractor.core.search.SearchStrategy;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Сервіс для пошуку даних у тексті за різними стратегіями.
+ * Головний двигун пошуку.
+ * Він отримує налаштовані поля і застосовує до них відповідні стратегії.
+ * Розташований у пакеті core, щоб бути доступним для Orchestrator.
  */
 public class SearchEngine {
-    
-    public enum MatchMode {
-        EXACT("Точне"),
-        PARTIAL("Часткове"),
-        REGEX("Regex точне"),
-        REGEX_PARTIAL("Regex часткове");
 
-        private final String label;
-        MatchMode(String label) { this.label = label; }
-        public String getLabel() { return label; }
+    // Список полів (наборів даних), які ми ініціалізуємо один раз для пресета
+    private final List<SearchField> fields;
+
+    /**
+     * Конструктор приймає список полів для обробки.
+     */
+    public SearchEngine(List<SearchField> fields) {
+        this.fields = fields;
     }
 
-    public List<String> find(String text, String query, MatchMode mode) {
-        if (text == null || query == null || query.isEmpty()) return Collections.emptyList();
-        
-        Set<String> results = new LinkedHashSet<>();
-        
-        switch (mode) {
-            case EXACT:
-                if (text.contains(query)) results.add(query);
-                break;
-            case PARTIAL:
-                Arrays.stream(text.split("\\s+"))
-                      .filter(word -> word.contains(query))
-                      .forEach(results::add);
-                break;
-            case REGEX:
-                extractByRegex(text, query, results, false);
-                break;
-            case REGEX_PARTIAL:
-                extractByRegex(text, query, results, true);
-                break;
+    /**
+     * Метод: execute
+     * Реалізація: Проходить по кожному полю та викликає відповідну стратегію пошуку.
+     * @param text витягнутий текст документа (PDF або DOCX).
+     * @return Мапа, де Ключ — назва стовпця, Значення — список знайдених збігів.
+     */
+    public Map<String, List<String>> execute(String text) {
+        // Використовуємо LinkedHashMap, щоб зберегти порядок стовпців, як у GUI
+        Map<String, List<String>> results = new LinkedHashMap<>();
+
+        for (SearchField field : fields) {
+            // Отримуємо стратегію безпосередньо через MatchMode, який зберігається у полі
+            SearchStrategy strategy = field.getMatchMode().getStrategy();
+            
+            // Виконуємо пошук за параметром, який задав користувач
+            List<String> matches = strategy.find(text, field.getSearchParameter());
+            
+            // Записуємо результат під відповідним заголовком стовпця
+            results.put(field.getColumnHeader(), matches);
         }
-        return new ArrayList<>(results);
-    }
 
-    private void extractByRegex(String text, String regex, Set<String> res, boolean partial) {
-        try {
-            Pattern p = Pattern.compile(partial ? ".*" + regex + ".*" : regex);
-            Matcher m = p.matcher(text);
-            while (m.find()) res.add(m.group());
-        } catch (PatternSyntaxException ignored) {}
+        return results;
     }
 }

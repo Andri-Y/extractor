@@ -1,27 +1,53 @@
 package com.app.extractor.ui;
 
-import com.app.extractor.core.SearchEngine;
-import javafx.scene.control.*;
+import com.app.extractor.core.search.MatchMode;
+
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
-import java.util.function.Consumer;
+import javafx.scene.layout.Priority;
 
-public class ConfigRow {
-    private final HBox view;
-    private final TextField paramInput = new TextField();
-    private final TextField columnInput = new TextField();
-    private final ComboBox<SearchEngine.MatchMode> modeCombo = new ComboBox<>();
+/**
+ * UI компонент одного набору даних.
+ * Коментував для Gr1m: реалізує один рядок у списку конфігурацій.
+ */
+public class ConfigRow extends HBox {
 
-    public ConfigRow(Consumer<ConfigRow> onDelete) {
-        paramInput.setPromptText("Параметри пошуку");
-        columnInput.setPromptText("Заголовок стовпця");
-        modeCombo.getItems().addAll(SearchEngine.MatchMode.values());
+    private final TextField queryField = new TextField();
+    private final ComboBox<MatchMode> modeCombo = new ComboBox<>();
+    private final TextField headerField = new TextField();
+    private final Button deleteBtn = new Button("🗑");
+
+    public ConfigRow(Runnable onRemove) {
+        // Налаштування елементів
+        queryField.setPromptText("Пошуковий запит / Regex");
+        headerField.setPromptText("Ім'я стовпця Excel");
+        modeCombo.getItems().addAll(MatchMode.values());
         modeCombo.getSelectionModel().selectFirst();
 
-        Button delBtn = new Button("-");
-        delBtn.setOnAction(e -> onDelete.accept(this));
+        // Розтягування полів
+        HBox.setHgrow(queryField, Priority.ALWAYS);
+        HBox.setHgrow(headerField, Priority.ALWAYS);
 
-        view = new HBox(10, paramInput, columnInput, modeCombo, delBtn);
+        this.setSpacing(10);
+        this.setAlignment(Pos.CENTER_LEFT);
+        this.getChildren().addAll(new Label("Шукати:"), queryField, modeCombo, new Label("Стовпець:"), headerField, deleteBtn);
+
+        deleteBtn.setOnAction(e -> onRemove.run());
     }
 
-    public HBox getView() { return view; }
+    // Геттери для збору даних при збереженні
+    public String getQuery() { return queryField.getText(); }
+    public String getHeader() { return headerField.getText(); }
+    public MatchMode getMode() { return modeCombo.getValue(); }
+
+    // Сеттери для завантаження конфігурації
+    public void setData(String q, String h, MatchMode m) {
+        queryField.setText(q);
+        headerField.setText(h);
+        modeCombo.setValue(m);
+    }
 }

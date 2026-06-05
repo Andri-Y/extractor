@@ -1,0 +1,17 @@
+{
+  "configName": "тест",
+  "sourcePath": "C:\\Users\\ayend\\OneDrive\\Документи\\служба\\рекрутинг\\витяги",
+  "outputPath": "C:\\Users\\ayend\\OneDrive\\Документи\\служба\\поточне\\test.xlsx.xlsx",
+  "fieldEntries": [
+    {
+      "header": "ПІБ",
+      "query": "Міністерство",
+      "mode": "EXACT"
+    },
+    {
+      "header": "",
+      "query": "солдат",
+      "mode": "EXACT"
+    }
+  ]
+}
