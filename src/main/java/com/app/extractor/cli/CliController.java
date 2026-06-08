@@ -22,7 +22,7 @@ import com.app.extractor.io.FileService;
 public class CliController {
 
     // Використовуємо Scanner для зчитування вводу користувача
-    private final Scanner input = new Scanner(System.in);
+    private final Scanner input = new Scanner(System.in, "UTF-8");
     private final ConfigManager configManager = new ConfigManager();
     private final FileService fileService = new FileService();
     private final Orchestrator orchestrator = new Orchestrator();
