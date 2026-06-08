@@ -9,7 +9,7 @@ public class AppConfig {
     private String configName = "";
     private String sourcePath = "";
     private String outputPath = "";
-    private List<FieldEntry> fieldEntries = new ArrayList<>();
+    private final List<FieldEntry> fieldEntries = new ArrayList<>();
 
     public static class FieldEntry {
         // Змінюємо імена полів, щоб вони збігалися з викликами в MainController
