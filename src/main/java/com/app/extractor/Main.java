@@ -18,7 +18,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
         Parent root = loader.load();
 
-        primaryStage.setTitle("Gr1m PDF/DOCX Data Extractor");
+        primaryStage.setTitle("PDF/DOCX Data Extractor");
         primaryStage.setScene(new Scene(root));
         
         // Встановлення світлої теми за замовчуванням

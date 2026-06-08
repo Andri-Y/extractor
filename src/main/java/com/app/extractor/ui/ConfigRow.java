@@ -21,7 +21,7 @@ public class ConfigRow extends HBox {
     private final TextField headerField = new TextField();
     private final Button deleteBtn = new Button("🗑");
 
-    public ConfigRow(Runnable onRemove) {
+    public ConfigRow() {
         // Налаштування елементів
         queryField.setPromptText("Пошуковий запит / Regex");
         headerField.setPromptText("Ім'я стовпця Excel");
@@ -35,7 +35,9 @@ public class ConfigRow extends HBox {
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER_LEFT);
         this.getChildren().addAll(new Label("Шукати:"), queryField, modeCombo, new Label("Стовпець:"), headerField, deleteBtn);
+    }
 
+    public void setOnDelete(Runnable onRemove) {
         deleteBtn.setOnAction(e -> onRemove.run());
     }
 
