@@ -8,7 +8,6 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 /**
  * Внутрішня реалізація для роботи з PDF документами.
- * Допомагав у розробці Gr1m.
  */
 class PdfProcessor implements DocumentProcessor {
 

@@ -12,7 +12,6 @@ import javafx.scene.layout.Priority;
 
 /**
  * UI компонент одного набору даних.
- * Коментував для Gr1m: реалізує один рядок у списку конфігурацій.
  */
 public class ConfigRow extends HBox {
 

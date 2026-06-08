@@ -16,7 +16,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  * Клас для експорту зібраних даних у формат Excel (.xlsx).
- * Реалізовано з урахуванням архітектурних вимог Gr1m.
  */
 public class ExcelWriter {
 

@@ -9,7 +9,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 /**
  * Внутрішня реалізація для роботи з файлами Microsoft Word (.docx).
- * Побудовано на принципах читого коду за підтримки Gr1m.
  */
 class DocxProcessor implements DocumentProcessor {
 

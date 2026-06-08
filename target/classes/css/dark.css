@@ -1,0 +1,18 @@
+.root {
+    -fx-base: #2c3e50;
+    -fx-control-inner-background: #34495e;
+    -fx-text-base-color: #ecf0f1;
+}
+
+.button {
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.text-field {
+    -fx-prompt-text-fill: #95a5a6;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
